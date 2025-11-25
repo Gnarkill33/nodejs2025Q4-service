@@ -1,6 +1,6 @@
-import crypto from 'node:crypto';
+import { randomUUID } from 'crypto';
 
-const uuid = () => crypto.randomUUID();
+const uuid = () => randomUUID();
 
 const userIds = Array.from({ length: 8 }, uuid);
 const artistIds = Array.from({ length: 8 }, uuid);
