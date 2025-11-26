@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 
-const uuid = () => randomUUID();
+export const uuid = () => randomUUID();
 
 const userIds = Array.from({ length: 8 }, uuid);
 const artistIds = Array.from({ length: 8 }, uuid);
