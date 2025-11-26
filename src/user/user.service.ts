@@ -30,10 +30,6 @@ export class UserService {
   }
 
   createUser(dto: CreateUserDto) {
-    if (!dto.login || !dto.password) {
-      throw new BadRequestException('Required fields are missing');
-    }
-
     const newUser = {
       id: uuid(),
       login: dto.login,
