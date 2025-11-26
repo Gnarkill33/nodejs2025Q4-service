@@ -6,6 +6,7 @@ import {
 import { db, uuid } from 'src/db';
 import { validate as uuidValidate } from 'uuid';
 import { CreateTrackDto } from './dto/create-track.dto';
+import { UpdateTrackDto } from './dto/update-track.dto';
 
 @Injectable()
 export class TrackService {
@@ -36,5 +37,28 @@ export class TrackService {
     db.tracks.push(newTrack);
 
     return newTrack;
+  }
+
+  updateTrack(id: string, dto: UpdateTrackDto) {
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid track ID');
+    }
+
+    const existingTrack = this.findTrackById(id);
+
+    if (!existingTrack) {
+      throw new NotFoundException('Track not found');
+    }
+
+    const updatedTrack = {
+      ...existingTrack,
+      ...dto,
+    };
+
+    db.tracks = db.tracks.map((track) =>
+      track.id === id ? updatedTrack : track,
+    );
+
+    return updatedTrack;
   }
 }
