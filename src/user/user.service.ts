@@ -73,4 +73,18 @@ export class UserService {
 
     return updatedUser;
   }
+
+  deleteUser(id: string) {
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid user ID');
+    }
+
+    const existingUser = this.findUserById(id);
+
+    if (!existingUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    db.users = db.users.filter((user) => user.id !== id);
+  }
 }
