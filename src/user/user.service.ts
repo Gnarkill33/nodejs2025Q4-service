@@ -39,9 +39,12 @@ export class UserService {
       updatedAt: Date.now(),
     };
 
+    const newUserNoPassword = { ...newUser };
+    delete newUserNoPassword.password;
+
     db.users.push(newUser);
 
-    return newUser;
+    return newUserNoPassword;
   }
 
   updateUser(id: string, dto: UpdateUserDto) {
@@ -63,11 +66,15 @@ export class UserService {
       ...existingUser,
       password: dto.newPassword,
       version: existingUser.version + 1,
+      updatedAt: Date.now(),
     };
+
+    const updateUserNoPassword = { ...updatedUser };
+    delete updateUserNoPassword.password;
 
     db.users = db.users.map((user) => (user.id === id ? updatedUser : user));
 
-    return updatedUser;
+    return updateUserNoPassword;
   }
 
   deleteUser(id: string) {
