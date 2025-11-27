@@ -3,8 +3,9 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { db } from 'src/db';
+import { db, uuid } from 'src/db';
 import { validate as uuidValidate } from 'uuid';
+import { CreateAlbumDto } from './dto/create-album.dto';
 
 @Injectable()
 export class AlbumService {
@@ -24,5 +25,16 @@ export class AlbumService {
     }
 
     return album;
+  }
+
+  createAlbum(dto: CreateAlbumDto) {
+    const newAlbum = {
+      id: uuid(),
+      ...dto,
+    };
+
+    db.albums.push(newAlbum);
+
+    return newAlbum;
   }
 }

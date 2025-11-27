@@ -1,1 +1,25 @@
-export class CreateAlbumDto {}
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+
+export class CreateAlbumDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsNumber()
+  @IsPositive()
+  @IsInt()
+  @IsNotEmpty()
+  year: number;
+
+  @IsOptional()
+  @IsUUID()
+  artistId: string | null;
+}
