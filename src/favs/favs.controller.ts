@@ -31,4 +31,15 @@ export class FavsController {
   deleteAlbumFromFavs(@Param('id') id: string) {
     return this.favsService.deleteAlbumFromFavs(id);
   }
+
+  @Post('/artist/:id')
+  addArtistToFavs(@Param('id') id: string) {
+    return this.favsService.addArtistToFavs(id);
+  }
+
+  @Delete('/artist/:id')
+  @HttpCode(204)
+  deleteArtistFromFavs(@Param('id') id: string) {
+    return this.favsService.deleteArtistFromFavs(id);
+  }
 }

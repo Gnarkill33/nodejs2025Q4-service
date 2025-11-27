@@ -92,4 +92,41 @@ export class FavsService {
       (albumId) => albumId !== id,
     );
   }
+
+  addArtistToFavs(id: string) {
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid artist ID');
+    }
+
+    const existingArtist = db.artists.find((artist) => artist.id === id);
+
+    if (!existingArtist) {
+      throw new UnprocessableEntityException('Artist not found');
+    }
+
+    db.favorites.artists.push(existingArtist.id);
+
+    return {
+      message: 'Artist added to favorites',
+      statusCode: 201,
+    };
+  }
+
+  deleteArtistFromFavs(id: string) {
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid artist ID');
+    }
+
+    const existingArtist = db.favorites.artists.find(
+      (artistId) => artistId === id,
+    );
+
+    if (!existingArtist) {
+      throw new NotFoundException('Artist not found in favorites');
+    }
+
+    db.favorites.artists = db.favorites.artists.filter(
+      (artistId) => artistId !== id,
+    );
+  }
 }
