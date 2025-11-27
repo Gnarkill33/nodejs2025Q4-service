@@ -75,6 +75,8 @@ export class TrackService {
 
     db.tracks = db.tracks.filter((track) => track.id !== id);
 
-    db.favorites.tracks.filter((trackId) => trackId !== id);
+    db.favorites.tracks = db.favorites.tracks.filter(
+      (trackId) => trackId !== id,
+    );
   }
 }

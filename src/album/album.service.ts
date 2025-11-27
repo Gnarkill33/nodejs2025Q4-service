@@ -79,6 +79,8 @@ export class AlbumService {
       track.albumId === id ? { ...track, albumId: null } : track,
     );
 
-    db.favorites.albums.filter((albumId) => albumId !== id);
+    db.favorites.albums = db.favorites.albums.filter(
+      (albumId) => albumId !== id,
+    );
   }
 }
