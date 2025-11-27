@@ -61,4 +61,26 @@ export class ArtistService {
 
     return updatedArtist;
   }
+
+  deleteArtist(id: string) {
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid artist ID');
+    }
+
+    const existingArtist = this.findArtistById(id);
+
+    if (!existingArtist) {
+      throw new NotFoundException('Artist not found');
+    }
+
+    db.artists = db.artists.filter((artist) => artist.id !== id);
+
+    db.tracks = db.tracks.map((track) =>
+      track.artistId === id ? { ...track, artistId: null } : track,
+    );
+
+    db.albums = db.albums.map((album) =>
+      album.artistId === id ? { ...album, artistId: null } : album,
+    );
+  }
 }
