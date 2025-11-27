@@ -61,4 +61,22 @@ export class AlbumService {
 
     return updatedAlbum;
   }
+
+  deleteAlbum(id: string) {
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid album ID');
+    }
+
+    const existingAlbum = this.findAlbumById(id);
+
+    if (!existingAlbum) {
+      throw new NotFoundException('Album not found');
+    }
+
+    db.albums = db.albums.filter((album) => album.id !== id);
+
+    db.tracks = db.tracks.map((track) =>
+      track.albumId === id ? { ...track, albumId: null } : track,
+    );
+  }
 }
