@@ -5,18 +5,19 @@ import {
   IsNotEmpty,
   IsPositive,
   IsInt,
+  IsOptional,
 } from 'class-validator';
 export class UpdateTrackDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 
+  @IsOptional()
   @IsUUID()
-  @IsNotEmpty()
   artistId: string | null;
 
+  @IsOptional()
   @IsUUID()
-  @IsNotEmpty()
   albumId: string | null;
 
   @IsNumber()
