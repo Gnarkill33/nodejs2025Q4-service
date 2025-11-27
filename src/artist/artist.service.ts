@@ -82,5 +82,7 @@ export class ArtistService {
     db.albums = db.albums.map((album) =>
       album.artistId === id ? { ...album, artistId: null } : album,
     );
+
+    db.favorites.artists.filter((artistId) => artistId !== id);
   }
 }
