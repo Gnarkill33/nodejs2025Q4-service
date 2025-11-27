@@ -61,4 +61,18 @@ export class TrackService {
 
     return updatedTrack;
   }
+
+  deleteTrack(id: string) {
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid track ID');
+    }
+
+    const existingTrack = this.findTrackById(id);
+
+    if (!existingTrack) {
+      throw new NotFoundException('Track not found');
+    }
+
+    db.tracks = db.tracks.filter((track) => track.id !== id);
+  }
 }
