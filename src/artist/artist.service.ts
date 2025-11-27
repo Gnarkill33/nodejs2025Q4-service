@@ -1,26 +1,28 @@
-import { Injectable } from '@nestjs/common';
-import { CreateArtistDto } from './dto/create-artist.dto';
-import { UpdateArtistDto } from './dto/update-artist.dto';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { db } from 'src/db';
+import { validate as uuidValidate } from 'uuid';
 
 @Injectable()
 export class ArtistService {
-  create(createArtistDto: CreateArtistDto) {
-    return 'This action adds a new artist';
+  findAllArtists() {
+    return db.artists;
   }
 
-  findAll() {
-    return `This action returns all artist`;
-  }
+  findArtistById(id: string) {
+    const artist = db.artists.find((artist) => artist.id === id);
 
-  findOne(id: number) {
-    return `This action returns a #${id} artist`;
-  }
+    if (!uuidValidate(id)) {
+      throw new BadRequestException('Invalid artist ID');
+    }
 
-  update(id: number, updateArtistDto: UpdateArtistDto) {
-    return `This action updates a #${id} artist`;
-  }
+    if (!artist) {
+      throw new NotFoundException('Artist not found');
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} artist`;
+    return artist;
   }
 }

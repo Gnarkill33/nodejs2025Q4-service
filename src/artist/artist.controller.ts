@@ -4,13 +4,14 @@ import { ArtistService } from './artist.service';
 @Controller('artist')
 export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}
+
   @Get()
-  findAll() {
-    return this.artistService.findAll();
+  findAllArtists() {
+    return this.artistService.findAllArtists();
   }
 
-  @Get(':id')
+  @Get('/:id')
   findOne(@Param('id') id: string) {
-    return this.artistService.findOne(+id);
+    return this.artistService.findArtistById(id);
   }
 }
