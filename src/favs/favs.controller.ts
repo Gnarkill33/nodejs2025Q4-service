@@ -1,8 +1,6 @@
 import { Controller, Delete, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { FavsService } from './favs.service';
-import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Favorites')
 @Controller('favs')
 export class FavsController {
   constructor(private readonly favsService: FavsService) {}
