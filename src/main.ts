@@ -2,7 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import 'dotenv/config';
 import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule } from '@nestjs/swagger';
+import { readFileSync } from 'fs';
+import * as yaml from 'js-yaml';
+import { join } from 'path';
 
 export const PORT = Number(process.env.PORT) || 3000;
 
@@ -10,14 +13,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
 
-  const config = new DocumentBuilder()
-    .setTitle('Home Library Service')
-    .setDescription('Home music library service')
-    .setVersion('1.0.0')
-    .build();
+  const filePath = join(__dirname, '..', 'doc', 'api.yaml');
+  const yamlFile = readFileSync(filePath, 'utf8');
+  const swaggerDocument = yaml.load(yamlFile);
 
-  const documentFactory = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('doc', app, documentFactory);
+  SwaggerModule.setup('doc', app, swaggerDocument);
 
   await app.listen(PORT);
 }
