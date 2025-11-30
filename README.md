@@ -13,8 +13,15 @@ git clone {repository URL}
 
 ## Installing NPM modules
 
-```
+```bash
+# Install dependencies
 npm install
+
+# Copy environment example and configure
+cp .env.example .env (default port 4000)
+
+# Run in development
+npm run start:dev
 ```
 
 ## Running application
@@ -29,7 +36,7 @@ For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 ## Testing
 
-After application running open new terminal and enter:
+After application running (❗️) open new terminal and enter:
 
 To run all tests without authorization
 
