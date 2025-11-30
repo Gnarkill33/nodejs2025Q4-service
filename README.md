@@ -7,8 +7,9 @@
 
 ## Downloading
 
-```
+```bash
 git clone {repository URL}
+# Don't forget to checkout to develop branch
 ```
 
 ## Installing NPM modules
