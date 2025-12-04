@@ -17,12 +17,11 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --omit=dev
+RUN npm install
 
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/doc/api.yaml ./doc/api.yaml
+COPY --from=builder /app/doc/api.yaml ./dist/doc/api.yaml
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
-
+CMD ["node", "dist/src/main.js"]
