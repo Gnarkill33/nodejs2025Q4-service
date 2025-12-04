@@ -5,7 +5,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgres://app:app@postgres:5432/appdb
+      DATABASE_URL: 'postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public'
     ports:
       - ${PORT}:${PORT}
 
@@ -19,7 +19,7 @@ services:
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
 
 volumes:
   pgdata:
