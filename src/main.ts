@@ -13,7 +13,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
 
-  const filePath = join(__dirname, '..', 'doc', 'api.yaml');
+  const filePath = join(process.cwd(), 'doc', 'api.yaml');
   const yamlFile = readFileSync(filePath, 'utf8');
   const swaggerDocument = yaml.load(yamlFile);
 
